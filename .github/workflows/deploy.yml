@@ -26,7 +26,7 @@ jobs:
 
       # Compilar o projeto com Maven
       - name: Build with Maven
-        run: mvn clean compile
+        run: mvn clean package
 
       # Executar testes
       - name: Run tests
