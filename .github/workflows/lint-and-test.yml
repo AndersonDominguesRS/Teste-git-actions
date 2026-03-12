@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Run Checkstyle
-        uses: nikitasavinov/checkstyle-action@v1
+        uses: nikitasavinov/checkstyle-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           checkstyle_config: "google"
