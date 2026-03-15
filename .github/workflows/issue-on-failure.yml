@@ -1,0 +1,32 @@
+name: Criar Issue Automática
+
+on:
+  workflow_dispatch
+
+permissions:
+  issues: write
+
+jobs:
+  check-vars:
+    runs-on: self-hosted
+
+    steps:
+      - name: Verificar se APP_MODE está definido
+        id: verificar
+        run: |
+          if [ -z "${{ vars.APP_MODE }}" ]; then
+            echo "variavel_faltando=true" >> $GITHUB_OUTPUT
+          else
+            echo "variavel_faltando=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Criar issue se variável estiver ausente
+        if: steps.verificar.outputs.variavel_faltando == 'true'
+        run: |
+          echo "Criando issue porque APP_MODE não está definida..."
+          gh issue create \
+            --title "Variável APP_MODE ausente" \
+            --body "A variável APP_MODE não está configurada no repositório." \
+            --label "bug"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
