@@ -1,0 +1,23 @@
+name: Teste Runner Local
+
+on:
+  workflow_dispatch
+
+jobs:
+  test-runner:
+    runs-on: self-hosted
+
+    steps:
+      - name: Mostrar informações do sistema
+        run: uname -a
+
+      - name: Mostrar versão do Java
+        run: java -version
+
+      - name: Instalar software adicional (tree)
+        run: |
+          sudo apt update
+          sudo apt install -y tree
+
+      - name: Testa software instalado
+        run: tree .
